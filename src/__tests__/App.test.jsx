@@ -3,21 +3,23 @@ import App from "../App";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: () =>
-      Promise.resolve(
-        Array.from({ length: 20 }, (_, index) => ({
-          albumId: 1,
-          id: index + 1,
-          title: `test image ${index + 1}`,
-          url: `https://via.placeholder.com/600/92c952?${index + 1}`,
-          thumbnailUrl: `https://via.placeholder.com/150/92c952?${index + 1}`,
-        }))
-      ),
-  })
-);
+beforeEach(() => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () =>
+        Promise.resolve(
+          Array.from({ length: 20 }, (_, index) => ({
+            albumId: 1,
+            id: index + 1,
+            title: `test image ${index + 1}`,
+            url: `https://via.placeholder.com/600/92c952?${index + 1}`,
+            thumbnailUrl: `https://via.placeholder.com/150/92c952?${index + 1}`,
+          }))
+        ),
+    })
+  );
+});
 
 describe("App Component", () => {
   test("renders a card with the image title", async () => {
@@ -33,7 +35,9 @@ describe("App Component", () => {
     const firstImageItem = await screen.findByTestId("image-item-1");
     expect(firstImageItem).toBeInTheDocument();
 
-    fireEvent.scroll(window, { target: { scrollY: 1000 } });
+    fireEvent.scroll(window, {
+      target: { scrollY: document.body.scrollHeight },
+    });
 
     await waitFor(() => {
       const newImageItem = screen.queryByTestId("image-item-20");
@@ -55,5 +59,9 @@ describe("App Component", () => {
     await waitFor(() => {
       expect(screen.queryByTestId("image-item-2")).not.toBeInTheDocument();
     });
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 });

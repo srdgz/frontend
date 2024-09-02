@@ -4,11 +4,11 @@ import ImageItem from "./ImageItem";
 
 const ImageGrid = ({ images, onRemoveImage }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {images.map((image, index) => (
         <ImageItem key={index} image={image} onRemoveImage={onRemoveImage} />
       ))}
-    </div>
+    </section>
   );
 };
 

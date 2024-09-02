@@ -7,10 +7,10 @@ const App = () => {
   const { images, isLoading, handleRemoveImage } = useFetchImages();
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <main className="min-h-screen bg-gray-100 p-8">
       <ImageGrid images={images} onRemoveImage={handleRemoveImage} />
       {isLoading && <Loader />}
-    </div>
+    </main>
   );
 };
 

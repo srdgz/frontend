@@ -9,7 +9,7 @@ const ImageItem = ({ image, onRemoveImage }) => {
   };
 
   return (
-    <motion.div
+    <motion.card
       className="relative cursor-pointer overflow-hidden rounded-xl shadow-lg"
       whileHover={{ scale: 1.1 }}
       data-testid={`image-item-${image.id}`}
@@ -31,7 +31,7 @@ const ImageItem = ({ image, onRemoveImage }) => {
       >
         <FaRegTrashAlt className="w-4 h-4 sm:w-4 sm:h-4" />
       </motion.button>
-    </motion.div>
+    </motion.card>
   );
 };
 
